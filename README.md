@@ -4,6 +4,10 @@ Simple AWS Lambda that fetches S3-stored images and returns response for API Gat
 
 ## Setup
 
+Use **Node v8.1.0** or higher.
+
+Run ```npm install```
+
 Following ENV variables are required:
 
 **AWS_REGION**=*e.g.* eu-central-1  
