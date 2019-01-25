@@ -12,6 +12,7 @@
     "lodash": "^4.17.11"
   },
   "devDependencies": {
-    "serverless": "^1.36.3"
+    "serverless-dotenv-plugin": "^2.0.1",
+    "serverless-offline": "^4.2.0"
   }
 }

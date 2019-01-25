@@ -1,0 +1,25 @@
+service: muzei-pixelart-images-service
+
+plugins:
+  - serverless-offline
+  - serverless-dotenv-plugin
+
+provider:
+  name: aws
+  runtime: nodejs8.10
+  stage: ${env:AWS_STAGE}
+  region: ${env:AWS_REGION}
+
+functions:
+  app:
+    handler: index.handler
+    events:
+      - http:
+          path: ${env:AWS_STAGE}/wallpapers/random
+          method: get
+          private: true
+
+custom:
+  serverless-offline:
+    apiKey: ${env:API_KEY}
+  
