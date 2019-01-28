@@ -5,30 +5,35 @@ const s3 = new AWS.S3();
 const DEFAULT_COUNT = 1
 
 module.exports.handler = async (event) => {
-    const bucketName = process.env.BUCKET_NAME
-    const count = _.get(event, 'queryStringParameters.count', DEFAULT_COUNT)
-    const params = { "Bucket": bucketName };
+	const count = _.get(event, 'queryStringParameters.count', DEFAULT_COUNT)
+	const params = { "Bucket": process.env.BUCKET_NAME };
 
-    const objects = await s3.listObjectsV2(params).promise()
-    const items = objects.Contents
-    const randomItems = _.sampleSize(items, count)
-    
-    const bucketLocation = await s3.getBucketLocation(params).promise()
-    const locationName = bucketLocation.LocationConstraint
+	const objects = await s3.listObjectsV2(params).promise()
+	const items = objects.Contents
+	const randomItems = _.sampleSize(items, count)
 
-    const responseBody = randomItems.map(item => {
-        return {
-            "id": item.Key,
-            "url": `https://s3.${locationName}.amazonaws.com/${bucketName}/${item.Key}`
-        }
-    })
-
-    return createResponse(200, responseBody)
+	return createResponse(randomItems)
 };
 
-function createResponse(statusCode, body) {
-    return {
-        "statusCode": statusCode,
-        "body": JSON.stringify(body)
-    };
+const createResponse = (items) => {
+	const body = createResponseBody(items)
+	return {
+		"statusCode": 200,
+		"body": JSON.stringify(body)
+	}
 }
+
+const createResponseBody = (items) =>
+	items.map(item => ({
+		"id": item.Key,
+		"url": getUrl(item.Key)
+	}));
+
+const getUrl = (key) =>
+	process.env.AWS_STAGE === 'dev' ? getDevUrl(key) : getProdUrl(key)
+
+const getDevUrl = (key) =>
+	`https://s3.${process.env.BUCKET_REGION}.amazonaws.com/${process.env.BUCKET_NAME}/${key}`
+
+const getProdUrl = (key) =>
+	`https://${process.env.AWS_CDN}/${key}`

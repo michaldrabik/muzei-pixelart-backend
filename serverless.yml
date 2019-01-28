@@ -8,7 +8,7 @@ provider:
   name: aws
   runtime: nodejs8.10
   stage: ${env:AWS_STAGE}
-  region: ${env:AWS_REGION}
+  region: eu-central-1
 
 functions:
   app:
