@@ -1,5 +1,5 @@
-# Muzei Pixelart Serverless Lambda
+# Muzei Pixelart Backend
 
-Simple AWS Lambda that fetches S3-stored images and returns JSON response.  
+Simple backend service based on AWS Lambda, Gateway and S3.  
 
 Serving images for [Muzei Pixel Art Extension](https://github.com/michaldrabik/muzei-pixelart-android)
