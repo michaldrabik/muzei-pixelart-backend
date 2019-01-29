@@ -6,13 +6,18 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "scripts": {
+    "test": "jest"
+  },
   "dependencies": {
     "aws-sdk": "^2.393.0",
     "dotenv": "^6.2.0",
     "lodash": "^4.17.11"
   },
   "devDependencies": {
+    "jest": "^24.0.0",
     "serverless-dotenv-plugin": "^2.0.1",
-    "serverless-offline": "^4.2.0"
+    "serverless-offline": "^4.2.0",
+    "sinon": "^7.2.3"
   }
 }

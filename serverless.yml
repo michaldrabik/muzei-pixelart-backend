@@ -6,7 +6,7 @@ plugins:
 
 provider:
   name: aws
-  runtime: nodejs8.10
+  runtime: nodejs8.1.0
   stage: ${env:AWS_STAGE}
   region: eu-central-1
 
