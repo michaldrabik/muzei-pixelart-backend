@@ -20,12 +20,38 @@ beforeAll(() => {
 
 test('Should return proper amount of random images', async () => {
     const items = await SUT.getRandom(2)
+
     expect(items.length).toBe(2);
 });
 
 test('Should return random image each call', async () => {
     const items1 = await SUT.getRandom(1)
     const items2 = await SUT.getRandom(1)
+
     expect(items1).not.toEqual(items2)
     expect(items1.length).toEqual(items2.length);
+});
+
+test('Should strip extension when creating and ID', async () => {
+    const id = SUT._getKeyId('somekey.jpg')
+    const id2 = SUT._getKeyId('somekey.png')
+    const id3 = SUT._getKeyId('somekey.jpeg')
+
+    expect(id).toBe('somekey')
+    expect(id2).toBe('somekey')
+    expect(id3).toBe('somekey')
+});
+
+test('Should create proper URL when stage is development', async () => {
+    process.env.AWS_STAGE = 'dev'
+    const url = SUT._getUrl('somekey.jpg')
+    
+    expect(url).toBe('https://s3.test_bucket_region.amazonaws.com/test_bucket_name/somekey.jpg')
+});
+
+test('Should create proper URL when stage is production', async () => {
+    process.env.AWS_STAGE = 'prod'
+    const url = SUT._getUrl('somekey.jpg')
+    
+    expect(url).toBe('https://test_aws_cdn/somekey.jpg')
 });

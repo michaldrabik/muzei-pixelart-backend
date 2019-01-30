@@ -9,7 +9,9 @@ class Images {
         const params = { "Bucket": process.env.BUCKET_NAME };
         const objects = await this.s3.listObjectsV2(params).promise()
         const items = _.sampleSize(objects.Contents, count)
-        return items.map(item => this._createImageJson(item.Key, this._getUrl(item.Key)))
+        return items.map(item =>
+            this._createItemJson(this._getKeyId(item.Key), this._getUrl(item.Key))
+        )
     }
 
     _getUrl(key) {
@@ -24,7 +26,11 @@ class Images {
         return `https://${process.env.AWS_CDN}/${key}`
     }
 
-    _createImageJson(id, url) {
+    _getKeyId(key) {
+        return key.replace(/\.[^/.]+$/, "")
+    }
+
+    _createItemJson(id, url) {
         return { id, url }
     }
 }
