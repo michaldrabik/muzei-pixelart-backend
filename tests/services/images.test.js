@@ -19,14 +19,14 @@ beforeAll(() => {
 });
 
 test('Should return proper amount of random images', async () => {
-    const items = await SUT.getRandom(2)
+    const items = await SUT.getRandomImages(2)
 
     expect(items.length).toBe(2);
 });
 
 test('Should return random image each call', async () => {
-    const items1 = await SUT.getRandom(1)
-    const items2 = await SUT.getRandom(1)
+    const items1 = await SUT.getRandomImages(1)
+    const items2 = await SUT.getRandomImages(1)
 
     expect(items1).not.toEqual(items2)
     expect(items1.length).toEqual(items2.length);

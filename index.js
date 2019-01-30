@@ -8,7 +8,7 @@ const DEFAULT_COUNT = 1
 
 module.exports.handler = async (event) => {
 	const count = _.get(event, 'queryStringParameters.count', DEFAULT_COUNT)
-	const randomItems = await images.getRandom(count)
+	const randomItems = await images.getRandomImages(count)
 	return createResponse(randomItems)
 };
 

@@ -5,7 +5,7 @@ class Images {
         this.s3 = s3
     }
 
-    async getRandom(count) {
+    async getRandomImages(count) {
         const params = { "Bucket": process.env.BUCKET_NAME };
         const objects = await this.s3.listObjectsV2(params).promise()
         const items = _.sampleSize(objects.Contents, count)
