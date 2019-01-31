@@ -1,7 +1,5 @@
 const AWS = require('aws-sdk');
 const sinon = require('sinon');
-
-const env = require('../stubs/env');
 const stubs = require('../stubs/s3');
 
 const Images = require('../../services/images');
@@ -10,10 +8,8 @@ const S3 = new AWS.S3()
 const SUT = new Images(S3)
 
 beforeAll(() => {
-    process.env = env
-
     let stub = sinon.stub(S3, 'listObjectsV2')
-    stub.withArgs({ "Bucket": env.BUCKET_NAME }).returns({
+    stub.withArgs({ "Bucket": process.env.BUCKET_NAME }).returns({
         promise: () => { return stubs.imageObjects }
     })
 });

@@ -1,0 +1,5 @@
+process.env.AWS_STAGE = 'test_aws_stage'
+process.env.AWS_CDN = 'test_aws_cdn'
+process.env.BUCKET_REGION = 'test_bucket_region'
+process.env.BUCKET_NAME = 'test_bucket_name'
+process.env.API_KEY = 'test_api_key'

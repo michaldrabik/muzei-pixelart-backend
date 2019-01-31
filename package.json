@@ -6,6 +6,11 @@
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "jest": {
+    "setupFiles": [
+      "./tests/env-test.js"
+    ]
+  },
   "scripts": {
     "test": "jest"
   },
